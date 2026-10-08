@@ -5,6 +5,8 @@
 
 ## 布局
 
+![Layout](./docs/layout.png)
+
 * 声母键 `bcdefghjklmnpqrstwxyz`（`sh` = `e`；`zh` = `q`/`f`、`ch` = `j`/`w`，
   按韵母分「外侧 / 内侧」）
 * 笔形键 `aiouv`
@@ -54,6 +56,9 @@
 python3 engine/tools/keytao_table_to_flow_dict.py --out-dir rime \
     --pinyin-simp /tmp/rime-pinyin-simp/pinyin_simp.dict.yaml
 ```
+
+（键位表在仓库根的 `layout.py`；布局图用
+`python3 engine/tools/layout_image.py --layout layout.py --out docs/layout.png` 重新生成。）
 
 ## 排码
 
