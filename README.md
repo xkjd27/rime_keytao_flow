@@ -1,24 +1,20 @@
 # 键道・函流 - 键道（KeyTao）双形顶功输入方案
 
-基于[键道](https://github.com/xkinput/KeyTao)（KeyTao）的布局与设计：默认词库由
-原版固定码表转换而来（保留简码层级与重码顺序），另附冰 / 袖珍两套拼音词库可选。
+基于[键道6](https://github.com/xkinput/KeyTao)（KeyTao）的布局与设计，抛弃了固定码表。进而采用了词库和逻辑顺序。
 
 ## 布局
 
 ![Layout](./docs/layout.png)
 
-* 声母键 `bcdefghjklmnpqrstwxyz`（`sh` = `e`；`zh` = `q`/`f`、`ch` = `j`/`w`，
-  按韵母分「外侧 / 内侧」）
-* 笔形键 `aiouv`
-* 飞键：`zh` 接 `ai`/`ao`/`e`、`ch` 接 `ao`/`e`、韵母 `uang` 都可用两个键位
-  （装 = `fm`/`fx`，这 = `qe`/`fe`，光 = `gm`/`gx`）
+### 其他布局
+* 27键无飞键版本 - [键道27・流](https://github.com/xkjd27/rime_jd27_flow)
+* Colemak 版本 - [键道27C・流](https://github.com/xkjd27/rime_jd27c_flow)
 
-## 与键道的区别
+## 与键道6的区别
 
-| | 键道 | 键道・函流 |
+| | 键道6 | 键道・函流 |
 | --- | ---|---|
-| 码表词库 | ✅ 固定码表 | ✅ 原版码表转换（默认词库，简码与顺序保留） |
-| 拼音词库 | ➖ | ✅ 冰 / 袖珍两套可选（按键道布局自动注音） |
+| 码表词库 | ❌ 固定码表 | ✅ 笔码搭配任意音码词库 |
 | 词组码长 | ❌ 最长6码，无全码 | ✅ 按词组长度配置全码，简码自动排权 |
 | 码长调整 | ❌ 纯手动排码排重 | ✅ <kbd>-</kbd> <kbd>=</kbd> 键排码功能，自动避重 |
 | 用户词 | ❌ 需要改文件部署 | ✅ <kbd>`</kbd> 键造词功能 |
@@ -26,39 +22,21 @@
 | 声笔笔简码 | ✅ 支持 | ❌ 不支持 |
 | 单字模式 | ✅ 支持 | ❌ 不支持 |
 
-由于 键道・函流 使用词库权重自动排码，候选顺序可能与键道原版略有出入（同码
-重码、形码深度大的位置）；但有了自主排码功能，用户可以自己实时修改码长。
+由于 键道・函流 使用词库权重自动排码，候选顺序可能与键道6原版略有出入；
+但有了自主排码功能，用户可以自己实时修改码长。
 
-另外由于使用了大量 lua 脚本，该方案性能可能不如键道。
+另外由于使用了大量 lua 脚本，该方案性能可能不如键道6。
 
 ## 词库
 
-本仓库自带三套词库（共用同一份单字 / 形码数据）：
+本仓库自带三套词库，使用 `keytao_table_to_flow_dict.py` 脚本生成：
 
 | 词库 | 来源 |
 | --- | --- |
-| `keytao_flow.keytao`（默认） | 键道原版码表 `keytao.single` / `keytao.phrase` / `keytao.supplement` 转换，len-dupe 权重 |
-| `keytao_flow.ice` | rime-ice 雾凇拼音，按键道布局注音 |
-| `keytao_flow.simp` | 袖珍简化字 pinyin_simp，按键道布局注音 |
+| `keytao_flow.keytao`（默认） | 键道原版码表转换，适合希望平替键道6的用户 |
+| `keytao_flow.ice` | 词库量大，长词组多，适合希望开箱即用的用户 |
+| `keytao_flow.simp` | 网络用语与长词组较少，适合希望避免词库冗余且倾向于自主造词的用户 |
 
-共用数据：`keytao_flow.danzi`（单字音码）、`keytao_flow.shape`（纯形码条目）、
-`keytao_flow.shape.txt`（每个字的完整形码，运行时筛选与提示用）。
-
-权重：
-
-* keytao 变体用 **len-dupe**——先按原码码长分层（原版「简码在前」），只有同一
-  个生成码里的重码才按原表顺序做次级排序；
-* ice / simp 变体用词库自己的词频，词组按字数降权（每多一字 ×0.35）。
-
-重新生成（默认读 `/tmp/KeyTao` 与 `/tmp/rime-ice`；KeyTao 不在会自动 clone）：
-
-```sh
-python3 engine/tools/keytao_table_to_flow_dict.py --out-dir rime \
-    --pinyin-simp /tmp/rime-pinyin-simp/pinyin_simp.dict.yaml
-```
-
-（键位表在仓库根的 `layout.py`；布局图用
-`python3 engine/tools/layout_image.py --layout layout.py --out docs/layout.png` 重新生成。）
 
 ## 排码
 
@@ -109,8 +87,7 @@ patch:
 
 ## 致谢与许可
 
-* 键道原作者：吅吅大山（[键道官网](https://xkinput.github.io/)）
-* 引擎：[flow_engine](https://github.com/xkjd27/flow_engine)（与 键道27・流 / 键道27C・流 共用）
+* 键道原作者：吅吅大山（[键道网站](https://keytao.rea.ink/)）
 * 雾凇拼音词库 [rime-ice](https://github.com/iDvel/rime-ice)
 
 本方案开源许可为 **GPL-3.0**（见 `LICENSE`）。
