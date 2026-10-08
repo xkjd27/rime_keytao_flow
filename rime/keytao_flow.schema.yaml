@@ -1,16 +1,16 @@
 # Rime schema
 # encoding: utf-8
 #
-# 键道6・流
-# 键道6 的 flow 移植版（布局与数据来自 KeyTao 仓库）
+# 键道・函流
+# 键道（KeyTao）的「流」移植版：原版码表转换 + 冰/袖珍词库（数据来自 KeyTao 仓库）
 
 schema:
   schema_id: keytao_flow
-  name: 键道6・流
+  name: 键道・函流
   version: "1.0"
   description: |
-    键道27C 的 无固定码表方案
-    使用词库词频自动生成候选排序和笔码筛选权重
+    键道（KeyTao）的「流」方案
+    原版码表转换 + 冰/袖珍词库，候选按权重自动排码
     支持 ` 键自主造词和 - = 键自主调频
     顶功逻辑不变
   author:
@@ -51,11 +51,11 @@ engine:
     - uniquifier
 
 speller:
-  alphabet: "abcdefghijklmnopqrstuvwxyz;"
+  alphabet: "abcdefghijklmnopqrstuvwxyz"
 
 translator:
-  # 词库：xkjd27c_flow.ice（雾凇拼音）| xkjd27c_flow.simp（袖珍简化字）
-  dictionary: keytao_orig
+  # 词库：keytao_flow.keytao（键道原版码表）| keytao_flow.ice（雾凇拼音）| keytao_flow.simp（袖珍简化字）
+  dictionary: keytao_flow.keytao
   enable_user_dict: false
   enable_sentence: false
   enable_completion: false
